@@ -39,7 +39,7 @@
             margin-right: 8px;
         }
         .legend-blue { background: #1e98ff; }
-        .legend-orange { background: #ff8c00; }
+        .legend-red { background: #ff0000; }
     </style>
 </head>
 <body>
@@ -51,7 +51,7 @@
             <span>Как всё начиналось</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot legend-orange"></div>
+            <div class="legend-dot legend-red"></div>
             <span>Чем город стал</span>
         </div>
     </div>
@@ -91,7 +91,7 @@
                 }
             ];
 
-            // МАРШРУТ 2: «Чем город стал» (оранжевые метки)
+            // МАРШРУТ 2: «Чем город стал» (красные метки)
             var route2 = [
                 { 
                     coords: [55.351324, 86.100151], 
@@ -152,7 +152,7 @@
             ];
 
             // Функция добавления меток
-            function addPoints(points, preset) {
+            function addPoints(points, color) {
                 points.forEach(function(point) {
                     var balloonHtml = '<b>' + point.name + '</b><br>Маршрут ' + point.route + ' · Объект ' + point.num;
                     
@@ -163,18 +163,17 @@
                     var placemark = new ymaps.Placemark(point.coords, {
                         hintContent: point.name,
                         balloonContent: balloonHtml,
-                        iconContent: point.num,
-                        iconCaption: point.name
+                        iconContent: point.num
                     }, {
-                        preset: preset
+                        preset: 'islands#' + color + 'Icon'
                     });
                     myMap.geoObjects.add(placemark);
                 });
             }
 
-            // Маршрут 1 — синий, маршрут 2 — оранжевый
-            addPoints(route1, 'islands#blueIconWithCaption');
-            addPoints(route2, 'islands#darkOrangeIconWithCaption');
+            // Маршрут 1 — синий, маршрут 2 — красный
+            addPoints(route1, 'blue');
+            addPoints(route2, 'red');
         }
     </script>
 </body>
