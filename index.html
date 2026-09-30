@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кемерово: от индустриализации к современности </title>
+    <title>Кемерово: от индустриализации к современности</title>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=4f9d3c26-2567-4016-bf13-0bc37eee8ec0&lang=ru_RU" type="text/javascript"></script>
     <style>
         body, html {
@@ -16,10 +16,45 @@
             width: 100%;
             height: 100%;
         }
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            font-size: 14px;
+            z-index: 1000;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .legend-blue { background: #1e98ff; }
+        .legend-red { background: #ff0000; }
     </style>
 </head>
 <body>
     <div id="map"></div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-dot legend-blue"></div>
+            <span>Как всё начиналось</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot legend-red"></div>
+            <span>Чем город стал</span>
+        </div>
+    </div>
 
     <script type="text/javascript">
         ymaps.ready(init);
@@ -133,7 +168,7 @@
                         iconContent: point.num,
                         iconCaption: point.name
                     }, {
-                        preset: 'islands#' + color + 'Icon'
+                        preset: 'islands#' + color + 'IconWithCaption'
                     });
                     myMap.geoObjects.add(placemark);
                 });
