@@ -154,10 +154,8 @@
             // Функция добавления меток
             function addPoints(points, preset) {
                 points.forEach(function(point) {
-                    // Формируем HTML для окна
                     var balloonHtml = '<b>' + point.name + '</b><br>Маршрут ' + point.route + ' · Объект ' + point.num;
                     
-                    // Если есть фото — добавляем его
                     if (point.img) {
                         balloonHtml += '<br><img src="' + point.img + '" style="width:100%; max-width:250px; margin-top:8px; border-radius:8px;">';
                     }
