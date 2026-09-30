@@ -130,6 +130,8 @@
                     var placemark = new ymaps.Placemark(point.coords, {
                         hintContent: point.name,
                         balloonContent: balloonHtml
+                        iconContent: point.num,
+                        iconCaption: point.name
                     }, {
                         preset: 'islands#' + color + 'Icon'
                     });
