@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кемерово: от индустриализации к современности</title>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=4f9d3c26-2567-4016-bf13-0bc37eee8ec0&lang=ru_RU" type="text/javascript"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script type="text/javascript">
+        ymaps.ready(init);
+
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [55.355, 86.100],
+                zoom: 12,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            // МАРШРУТ 1: «Как всё начиналось» (синие метки)
+            var route1 = [
+                { 
+                    coords: [55.375501, 86.071729], 
+                    name: "Красная Горка", 
+                    route: 1,
+                    num: 1,
+                    img: "images/krasnaya-gorka.jpg"
+                },
+                { 
+                    coords: [55.374084, 86.078472], 
+                    name: "Памятник «Память шахтёрам Кузбасса»", 
+                    route: 1,
+                    num: 2,
+                    img: "images/pamyat-shahtyoram.jpg"
+                },
+                { 
+                    coords: [55.34812, 86.075774], 
+                    name: "Площадь Волкова", 
+                    route: 1,
+                    num: 3,
+                    img: "images/ploshchad-volkova.jpg"
+                }
+            ];
+
+            // МАРШРУТ 2: «Чем город стал» (красные метки)
+            var route2 = [
+                { 
+                    coords: [55.351324, 86.100151], 
+                    name: "Сибирский кластер искусств (Музейно-театральная часть)", 
+                    route: 2,
+                    num: 1,
+                    img: "images/klaster-muzey.jpg"
+                },
+                { 
+                    coords: [55.346332, 86.096641], 
+                    name: "Памятник Александру Невскому", 
+                    route: 2,
+                    num: 2,
+                    img: "images/nevskiy.jpg"
+                },
+                { 
+                    coords: [55.358386, 86.127048], 
+                    name: "Московская площадь", 
+                    route: 2,
+                    num: 3,
+                    img: "images/moskovskaya-ploshchad.jpg"
+                },
+                { 
+                    coords: [55.35984, 86.152002], 
+                    name: "Мемориал Воину-Освободителю (Масалов)", 
+                    route: 2,
+                    num: 4,
+                    img: "images/masalov.jpg"
+                },
+                { 
+                    coords: [55.336875, 86.166281], 
+                    name: "Академия хореографии", 
+                    route: 2,
+                    num: 5,
+                    img: "images/horeografiya.jpg"
+                },
+                { 
+                    coords: [55.337337, 86.168192], 
+                    name: "Центральная музыкальная школа", 
+                    route: 2,
+                    num: 6,
+                    img: "images/muz-shkola.jpg"
+                },
+                { 
+                    coords: [55.337739, 86.161727], 
+                    name: "Кампус РГИСИ", 
+                    route: 2,
+                    num: 7,
+                    img: "images/rgisi.jpg"
+                },
+                { 
+                    coords: [55.337570, 86.160157], 
+                    name: "Фондохранилище", 
+                    route: 2,
+                    num: 8,
+                    img: "images/fondohranilishche.jpg"
+                }
+            ];
+
+            // Функция добавления меток
+            function addPoints(points, color) {
+                points.forEach(function(point) {
+                    // Формируем HTML для окна
+                    var balloonHtml = '<b>' + point.name + '</b><br>Маршрут ' + point.route + ' · Объект ' + point.num;
+                    
+                    // Если есть фото — добавляем его
+                    if (point.img) {
+                        balloonHtml += '<br><img src="' + point.img + '" style="width:100%; max-width:250px; margin-top:8px; border-radius:8px;">';
+                    }
+
+                    var placemark = new ymaps.Placemark(point.coords, {
+                        hintContent: point.name,
+                        balloonContent: balloonHtml
+                    }, {
+                        preset: 'islands#' + color + 'Icon'
+                    });
+                    myMap.geoObjects.add(placemark);
+                });
+            }
+
+            // Маршрут 1 — синий, маршрут 2 — красный
+            addPoints(route1, 'blue');
+            addPoints(route2, 'red');
+        }
+    </script>
+</body>
+</html>
