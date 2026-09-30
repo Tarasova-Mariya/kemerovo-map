@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кемерово: от индустриализации к современности</title>
+    <title>Кемерово: маршрут перемен</title>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=4f9d3c26-2567-4016-bf13-0bc37eee8ec0&lang=ru_RU" type="text/javascript"></script>
     <style>
         body, html {
@@ -39,7 +39,7 @@
             margin-right: 8px;
         }
         .legend-blue { background: #1e98ff; }
-        .legend-red { background: #ff0000; }
+        .legend-orange { background: #ff8c00; }
     </style>
 </head>
 <body>
@@ -51,7 +51,7 @@
             <span>Как всё начиналось</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot legend-red"></div>
+            <div class="legend-dot legend-orange"></div>
             <span>Чем город стал</span>
         </div>
     </div>
@@ -91,7 +91,7 @@
                 }
             ];
 
-            // МАРШРУТ 2: «Чем город стал» (красные метки)
+            // МАРШРУТ 2: «Чем город стал» (оранжевые метки)
             var route2 = [
                 { 
                     coords: [55.351324, 86.100151], 
@@ -152,7 +152,7 @@
             ];
 
             // Функция добавления меток
-            function addPoints(points, color) {
+            function addPoints(points, preset) {
                 points.forEach(function(point) {
                     // Формируем HTML для окна
                     var balloonHtml = '<b>' + point.name + '</b><br>Маршрут ' + point.route + ' · Объект ' + point.num;
@@ -168,15 +168,15 @@
                         iconContent: point.num,
                         iconCaption: point.name
                     }, {
-                        preset: 'islands#' + color + 'IconWithCaption'
+                        preset: preset
                     });
                     myMap.geoObjects.add(placemark);
                 });
             }
 
-            // Маршрут 1 — синий, маршрут 2 — красный
-            addPoints(route1, 'blue');
-            addPoints(route2, 'darkorange');
+            // Маршрут 1 — синий, маршрут 2 — оранжевый
+            addPoints(route1, 'islands#blueIconWithCaption');
+            addPoints(route2, 'islands#darkOrangeIconWithCaption');
         }
     </script>
 </body>
