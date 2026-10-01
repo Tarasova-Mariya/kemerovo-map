@@ -66,100 +66,32 @@
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
-            // МАРШРУТ 1: «Как всё начиналось» (синие метки)
+            // МАРШРУТ 1: «Как всё начиналось»
             var route1 = [
-                { 
-                    coords: [55.375501, 86.071729], 
-                    name: "Красная Горка", 
-                    route: 1,
-                    num: 1,
-                    img: "krasnaya-gorka.jpg"
-                },
-                { 
-                    coords: [55.374084, 86.078472], 
-                    name: "Памятник «Память шахтёрам Кузбасса»", 
-                    route: 1,
-                    num: 2,
-                    img: "pamyat-shahtyoram.jpg"
-                },
-                { 
-                    coords: [55.34812, 86.075774], 
-                    name: "Площадь Волкова", 
-                    route: 1,
-                    num: 3,
-                    img: "ploshchad-volkova.jpg"
-                }
+                { coords: [55.375501, 86.071729], name: "Красная Горка", route: 1, num: 1, img: "krasnaya-gorka.jpg" },
+                { coords: [55.374084, 86.078472], name: "Памятник «Память шахтёрам Кузбасса»", route: 1, num: 2, img: "pamyat-shahtyoram.jpg" },
+                { coords: [55.34812, 86.075774], name: "Площадь Волкова", route: 1, num: 3, img: "ploshchad-volkova.jpg" }
             ];
 
-            // МАРШРУТ 2: «Чем город стал» (красные метки)
+            // МАРШРУТ 2: «Чем город стал»
             var route2 = [
-                { 
-                    coords: [55.351324, 86.100151], 
-                    name: "Сибирский кластер искусств (Музейно-театральная часть)", 
-                    route: 2,
-                    num: 1,
-                    img: "klaster-muzey.jpg"
-                },
-                { 
-                    coords: [55.346332, 86.096641], 
-                    name: "Памятник Александру Невскому", 
-                    route: 2,
-                    num: 2,
-                    img: "nevskiy.jpg"
-                },
-                { 
-                    coords: [55.358386, 86.127048], 
-                    name: "Московская площадь", 
-                    route: 2,
-                    num: 3,
-                    img: "moskovskaya-ploshchad.jpg"
-                },
-                { 
-                    coords: [55.35984, 86.152002], 
-                    name: "Мемориал Воину-Освободителю (Масалов)", 
-                    route: 2,
-                    num: 4,
-                    img: "masalov.jpg"
-                },
-                { 
-                    coords: [55.336875, 86.166281], 
-                    name: "Академия хореографии", 
-                    route: 2,
-                    num: 5,
-                    img: "horeografiya.jpg"
-                },
-                { 
-                    coords: [55.337337, 86.168192], 
-                    name: "Центральная музыкальная школа", 
-                    route: 2,
-                    num: 6,
-                    img: "muz-shkola.jpg"
-                },
-                { 
-                    coords: [55.337739, 86.161727], 
-                    name: "Кампус РГИСИ", 
-                    route: 2,
-                    num: 7,
-                    img: "rgisi.jpg"
-                },
-                { 
-                    coords: [55.337570, 86.160157], 
-                    name: "Фондохранилище", 
-                    route: 2,
-                    num: 8,
-                    img: "fondohranilishche.jpg"
-                }
+                { coords: [55.351324, 86.100151], name: "Сибирский кластер искусств (Музейно-театральная часть)", route: 2, num: 1, img: "klaster-muzey.jpg" },
+                { coords: [55.346332, 86.096641], name: "Памятник Александру Невскому", route: 2, num: 2, img: "nevskiy.jpg" },
+                { coords: [55.358386, 86.127048], name: "Московская площадь", route: 2, num: 3, img: "moskovskaya-ploshchad.jpg" },
+                { coords: [55.35984, 86.152002], name: "Мемориал Воину-Освободителю (Масалов)", route: 2, num: 4, img: "masalov.jpg" },
+                { coords: [55.336875, 86.166281], name: "Академия хореографии", route: 2, num: 5, img: "horeografiya.jpg" },
+                { coords: [55.337337, 86.168192], name: "Центральная музыкальная школа", route: 2, num: 6, img: "muz-shkola.jpg" },
+                { coords: [55.337739, 86.161727], name: "Кампус РГИСИ", route: 2, num: 7, img: "rgisi.jpg" },
+                { coords: [55.337570, 86.160157], name: "Фондохранилище", route: 2, num: 8, img: "fondohranilishche.jpg" }
             ];
 
             // Функция добавления меток
             function addPoints(points, color) {
                 points.forEach(function(point) {
                     var balloonHtml = '<b>' + point.name + '</b><br>Маршрут ' + point.route + ' · Объект ' + point.num;
-                    
                     if (point.img) {
                         balloonHtml += '<br><img src="' + point.img + '" style="width:100%; max-width:250px; margin-top:8px; border-radius:8px;">';
                     }
-
                     var placemark = new ymaps.Placemark(point.coords, {
                         hintContent: point.name,
                         balloonContent: balloonHtml,
@@ -174,6 +106,33 @@
             // Маршрут 1 — синий, маршрут 2 — красный
             addPoints(route1, 'blue');
             addPoints(route2, 'red');
+
+            // ЛИНИЯ МАРШРУТА 1 (синяя)
+            var routeLine1 = new ymaps.multiRouter.MultiRoute({
+                referencePoints: route1.map(function(p) { return p.coords; }),
+                params: { routingMode: 'pedestrian' }
+            }, {
+                routeActiveStrokeColor: '#1e98ff',
+                routeActiveStrokeWidth: 5,
+                boundsAutoApply: false,
+                wayPointVisible: false
+            });
+            myMap.geoObjects.add(routeLine1);
+
+            // ЛИНИЯ МАРШРУТА 2 (красная)
+            var routeLine2 = new ymaps.multiRouter.MultiRoute({
+                referencePoints: route2.map(function(p) { return p.coords; }),
+                params: { routingMode: 'pedestrian' }
+            }, {
+                routeActiveStrokeColor: '#ff0000',
+                routeActiveStrokeWidth: 5,
+                boundsAutoApply: false,
+                wayPointVisible: false
+            });
+            myMap.geoObjects.add(routeLine2);
+
+            // Автомасштабирование под оба маршрута
+            myMap.setBounds(myMap.geoObjects.getBounds());
         }
     </script>
 </body>
